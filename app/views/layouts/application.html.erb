@@ -13,6 +13,11 @@
     <%= render 'layouts/header' %>
       <main>
         <p id="notice"><%= notice %></p>
+        <div class = "text-center">
+          <% unless content_for?(:exclude_partial) %>
+            <%= render 'searches/search' %>
+          <% end %>
+        </div>
       </main>
     <%= yield %>
     <%= render 'layouts/footer' %>
