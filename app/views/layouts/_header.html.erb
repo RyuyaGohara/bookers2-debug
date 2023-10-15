@@ -8,6 +8,18 @@
       <div class="collapse navbar-collapse" id="navbarNavDropdown">
         <ul class="navbar-nav ml-auto">
         <% if user_signed_in? %>
+
+          <li class="nav-item">
+            <%= link_to user_notifications_path(current_user), class: "nav-link" do %>
+              <% if current_user.notifications.where(checked: false).exists? %>
+                <i class="fa-sharp fa-solid fa-bell fa-beat" style="color: #f2ee7d;"></i>
+              <% else %>
+                <i class="fa-sharp fa-solid fa-bell"></i>
+              <% end %>
+              通知一覧
+            <% end %>
+          </li>
+
           <li>
             <%= link_to user_path(current_user),class: 'nav-link text-light' do %>
               <i class="fas fa-home"></i> Home
