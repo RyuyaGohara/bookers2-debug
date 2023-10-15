@@ -12,7 +12,7 @@
           <li class="nav-item">
             <%= link_to user_notifications_path(current_user), class: "nav-link" do %>
               <% if current_user.notifications.where(checked: false).exists? %>
-                <i class="fa-sharp fa-solid fa-bell fa-beat" style="color: #f2ee7d;"></i>
+                <i class="fa-sharp fa-solid fa-bell" style="color: red;"></i>
               <% else %>
                 <i class="fa-sharp fa-solid fa-bell"></i>
               <% end %>

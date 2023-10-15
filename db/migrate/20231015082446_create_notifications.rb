@@ -4,7 +4,7 @@ class CreateNotifications < ActiveRecord::Migration[6.1]
       t.references :subject, polymorphic: true
       t.integer :user_id
       t.integer :action_type, null: false
-      t.boolean :checked
+      t.boolean :checked, default: false, null: false
 
       t.timestamps
     end
