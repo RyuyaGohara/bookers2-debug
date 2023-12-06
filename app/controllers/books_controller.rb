@@ -9,8 +9,12 @@ class BooksController < ApplicationController
   end
 
   def index
+    to = Time.current.at_end_of_day　#現在の日時を基準にして期間の終了日を設定
+    from = (to - 6.day).at_beginning_of_day #終了日から6日前の日時を開始日として設定,これで一週間に設定される
+    @books = Book.includes(:favorites).sort_by { |book| -book.favorites.where(created_at: from...to).count }
+    #特定の期間内に作成されたいいね情報のクエリを実行。book の関連するいいね情報を取得し、その中から指定した期間内のものを抽出
+    #各書籍のいいね数を降順にソートするための処理です。期間内に作成されたいいね情報を取得し、その数でbookをソート
     @book = Book.new
-    @books = Book.all
   end
 
   def create
