@@ -1,3 +1,4 @@
+# DM機能のため追加
 class Room < ApplicationRecord
   belongs_to :user
   
