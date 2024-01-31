@@ -3,13 +3,16 @@ class BooksController < ApplicationController
 
   def show
     @book = Book.find(params[:id])
+    unless ReadCount.where(created_at: Time.zone.now.all_day).find_by(user_id: current_user.id, book_id: @book.id)
+      current_user.read_counts.create(book_id: @book.id)
+    end
     @user = @book.user
     @booknew = Book.new
     @book_comment = BookComment.new
   end
 
   def index
-    to = Time.current.at_end_of_day　#現在の日時を基準にして期間の終了日を設定
+    to = Time.current.at_end_of_day #現在の日時を基準にして期間の終了日を設定
     from = (to - 6.day).at_beginning_of_day #終了日から6日前の日時を開始日として設定,これで一週間に設定される
     @books = Book.includes(:favorites).sort_by { |book| -book.favorites.where(created_at: from...to).count }
     #特定の期間内に作成されたいいね情報のクエリを実行。book の関連するいいね情報を取得し、その中から指定した期間内のものを抽出
